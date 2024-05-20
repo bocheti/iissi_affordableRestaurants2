@@ -39,7 +39,11 @@ export default function RestaurantsScreen ({ navigation, route }) {
         {item.averageServiceMinutes !== null &&
           <TextSemiBold>Avg. service time: <TextSemiBold textStyle={{ color: GlobalStyles.brandPrimary }}>{item.averageServiceMinutes} min.</TextSemiBold></TextSemiBold>
         }
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
         <TextSemiBold>Shipping: <TextSemiBold textStyle={{ color: GlobalStyles.brandPrimary }}>{item.shippingCosts.toFixed(2)}€</TextSemiBold></TextSemiBold>
+        {item.affordable === true && <TextSemiBold textStyle={{ color: GlobalStyles.brandSuccess, borderColor: GlobalStyles.brandSuccess, alignContent: 'center', textAlign: 'center', marginRight: '5vw', borderWidth: 3, borderRadius: 10, height: 25, width: 40 }}>€</TextSemiBold>}
+        {item.affordable === false && <TextSemiBold textStyle={{ color: GlobalStyles.brandPrimary, borderColor: GlobalStyles.brandPrimary, alignContent: 'center', textAlign: 'center', marginRight: '5vw', borderWidth: 3, borderRadius: 10, height: 25, width: 40 }}>€€</TextSemiBold>}
+        </View>
         <View style={styles.actionButtonsContainer}>
           <Pressable
             onPress={() => navigation.navigate('EditRestaurantScreen', { id: item.id })
@@ -95,7 +99,7 @@ export default function RestaurantsScreen ({ navigation, route }) {
       <>
       {loggedInUser &&
       <Pressable
-        onPress={() => navigation.navigate('CreateRestaurantScreen')
+        onPress={() => navigation.navigate('CreateRestaurantScreen', { refresh: true })
         }
         style={({ pressed }) => [
           {
